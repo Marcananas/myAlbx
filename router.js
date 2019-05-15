@@ -2,6 +2,7 @@
 const express = require('express')
 // 引入页面控制器模块
 const pagesController = require('./controller/pagesController')
+const userController = require('./controller/userController')
 // 创建路由模块
 const router = express.Router()
 // 返回前台页面
@@ -22,5 +23,7 @@ router
     .get('/admin/settings', pagesController.getSettings)
     .get('/admin/slides', pagesController.getSlides)
     .get('/admin/users', pagesController.getUsers)
+    // 用户数据处理
+    .post('/login', userController.login)
 
 module.exports = router

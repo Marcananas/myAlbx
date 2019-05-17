@@ -3,6 +3,7 @@ exports.login = (req, res) => {
     console.log(req.body)
     userModule.getUserByEmail(req.body.email, (err, data) => {
         if (err) {
+            // console.log(err)
             res.json({
                 code: 201,
                 msg: '服务器异常'
@@ -10,10 +11,13 @@ exports.login = (req, res) => {
         } else {
             if (data) {
                 if (data.password == req.body.password) {
-                    res.json({
+                    res.writeHead(200, {
+                        'Set-Cookie': 'isLogin=true'
+                    })
+                    res.end(JSON.stringify({
                         code: 200,
                         msg: '登录成功'
-                    })
+                    }))
                 } else {
                     res.json({
                         code: 201,

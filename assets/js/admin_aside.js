@@ -1,6 +1,5 @@
 $(function () {
-    // 判断当前URL中是否含有'?'
-    var index = location.href.indexOf('?')
+    var routername = common.getRouterName(location.href)
     /**Location 对象属性
         属性	        描述
         hash	    设置或返回从井号 (#) 开始的 URL（锚）。
@@ -12,16 +11,6 @@ $(function () {
         protocol	设置或返回当前 URL 的协议。
         search	    设置或返回从问号 (?) 开始的 URL（查询部分）。 
     */
-    var url = location.href
-    var routername
-    // 获取路由方法
-    if (index == -1) {
-        routername = url.substring(url.lastIndexOf('/') + 1)
-    } else {
-        routername = url.substring(url.lastIndexOf('/') + 1, index)
-    }
-    // 通过获取的路由，将对应的栏目添加样式
-    // 仪表盘
     if (routername == 'admin') {
         $('#instrument-board').addClass('active');
     }

@@ -1,6 +1,7 @@
+const userModule = require('../dataModuule/userDataMod')
 exports.login = (req, res) => {
     console.log(req.body)
-    userModule.getUserById(req.body.email, (err, data) => {
+    userModule.getUserByEmail(req.body.email, (err, data) => {
         if (err) {
             res.json({
                 code: 201,

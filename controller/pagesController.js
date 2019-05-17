@@ -1,4 +1,3 @@
-var querystring = require('querystring')
 // 前台页面渲染
 exports.getIndex = (req, res) => {
     res.render('index.ejs')
@@ -11,15 +10,19 @@ exports.getList = (req, res) => {
 }
 // 后台页面渲染
 exports.getAdmin = (req, res) => {
-    var mycookie = querystring.parse(req.headers.cookie)
-    if (mycookie.isLogin && mycookie.isLogin == 'true') {
-        // // 下面这个配置的作用是配置ejs的模板文件夹，以后ejs会自动的去指定的目录下寻找页面文件
-        // app.set('views',__dirname + '/views')
-        res.render('admin/index.ejs')
-    } else {
-        res.render('admin/login.ejs')
-    }
+    res.render('admin/index.ejs')
 }
+
+// exports.getAdmin = (req, res) => {
+//     if (req.session.isLogin && req.session.isLogin == 'true') {
+//         // // 下面这个配置的作用是配置ejs的模板文件夹，以后ejs会自动的去指定的目录下寻找页面文件
+//         // app.set('views',__dirname + '/views')
+//         res.render('admin/index.ejs')
+//     } else {
+//         res.redirect('admin/login.ejs')
+//     }
+// }
+
 exports.getCategories = (req, res) => {
     res.render('admin/categories.ejs')
 }

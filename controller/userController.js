@@ -11,13 +11,12 @@ exports.login = (req, res) => {
         } else {
             if (data) {
                 if (data.password == req.body.password) {
-                    res.writeHead(200, {
-                        'Set-Cookie': 'isLogin=true'
-                    })
-                    res.end(JSON.stringify({
+                    req.session.isLogin = 'true'
+                    req.session.currentUser = data
+                    res.json({
                         code: 200,
                         msg: '登录成功'
-                    }))
+                    })
                 } else {
                     res.json({
                         code: 201,

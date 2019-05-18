@@ -3,6 +3,7 @@ const express = require('express')
 // 引入页面控制器模块
 const pagesController = require('./controller/pagesController')
 const userController = require('./controller/userController')
+const cateController = require('./controller/cateController')
 // 创建路由模块
 const router = express.Router()
 // 返回前台页面
@@ -25,5 +26,9 @@ router
     .get('/admin/users', pagesController.getUsers)
     // 用户数据处理
     .post('/login', userController.login)
+    // 分类目录数据处理
+    .get('/getCategories', cateController.getCategories)
+    .post('/editCategories', cateController.editCategories)
+    .post('/addCategories', cateController.addCategories)
 
 module.exports = router

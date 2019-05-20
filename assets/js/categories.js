@@ -7,7 +7,7 @@ $(function () {
             // data: "data",
             dataType: "json",
             success: function (response) {
-                // console.log(response)
+                console.log(response)
                 var html = template('cateList', { list: response })
                 $('tbody').html(html)
             }
@@ -109,7 +109,33 @@ $(function () {
         })
     })
     // 设置删除事件
-    $('tbody').on('click', '#del', function () {
-
+    // 打包删除ajax
+    function del(id) {
+        $.ajax({
+            type: "post",
+            url: "/delCategories",
+            data: { id },
+            dataType: "json",
+            success: function (response) {
+                init()
+            }
+        })
+    }
+    // 删除单项
+    $('tbody').on('click', '.btn-del', function () {
+        // console.log($(this)[0].dataset.id)
+        var id = $(this)[0].dataset.id
+        del(id)
+    })
+    // 批量删除
+    $('#delInBatches').on('click', function () {
+        // 获取勾选项目
+        var allChk = $('tbody .checkList:checked')
+        // console.log(allChk)
+        // 遍历勾选项目
+        for (var i = 0; i < allChk.length; i++) {
+            // 将遍历获取的id输入del函数进行逐项删除的操作
+            del(allChk[i].dataset.id)
+        }
     })
 })

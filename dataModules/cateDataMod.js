@@ -9,6 +9,7 @@ exports.getAllCate = (callback) => {
         }
     })
 }
+// 根据id提交修改数据到数据库
 exports.eidtById = (obj, callback) => {
     connection.query('UPDATE categories SET slug = ?, name = ? WHERE id = ?', [obj.slug, obj.name, obj.id], (err) => {
         if (err) {
@@ -18,8 +19,19 @@ exports.eidtById = (obj, callback) => {
         }
     })
 }
+// 添加数据到数据库
 exports.add = (obj, callback) => {
     connection.query('INSERT categories VALUE(null,?,?)', [obj.slug, obj.name], (err) => {
+        if (err) {
+            callback(err)
+        } else {
+            callback(null)
+        }
+    })
+}
+// 根据id删除数据库
+exports.del = (obj, callback) => {
+    connection.query('delete from categories where id=?', [obj.id], (err) => {
         if (err) {
             callback(err)
         } else {

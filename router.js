@@ -24,11 +24,14 @@ router
     .get('/admin/settings', pagesController.getSettings)
     .get('/admin/slides', pagesController.getSlides)
     .get('/admin/users', pagesController.getUsers)
-    // 用户数据处理
+    // 登录操作数据处理
     .post('/login', userController.login)
+    // 所有文章数据处理
+
     // 分类目录数据处理
     .get('/getCategories', cateController.getCategories)
     .post('/editCategories', cateController.editCategories)
     .post('/addCategories', cateController.addCategories)
+    .post('/delCategories', cateController.delCategories)
 
 module.exports = router

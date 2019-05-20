@@ -4,6 +4,7 @@ const express = require('express')
 const pagesController = require('./controller/pagesController')
 const userController = require('./controller/userController')
 const cateController = require('./controller/cateController')
+const postsController = require('./controller/postsController')
 // 创建路由模块
 const router = express.Router()
 // 返回前台页面
@@ -27,7 +28,8 @@ router
     // 登录操作数据处理
     .post('/login', userController.login)
     // 所有文章数据处理
-
+    .get('/getPosts', postsController.getPosts)
+    .post('/delPosts', postsController.delPosts)
     // 分类目录数据处理
     .get('/getCategories', cateController.getCategories)
     .post('/editCategories', cateController.editCategories)

@@ -19,8 +19,16 @@ $(function () {
                 // console.log(response)
                 var html = template('postsList', response)
                 $('tbody').html(html)
+                // 将条目总数传入分页器模版前要判断筛选后条目数是否为0
+                if (response.total == 0) {
+                    // 如果总条目数为0时让页数等于1，否则会因为页数为0报错
+                    var total = 1
+                } else {
+                    // 如果总条目数不为0则用一下算式计算页数，这里要使用天花板函数保证所有数据显示
+                    total = Math.ceil(response.total / pageSize)
+                }
                 // 调用分页器模版，传入总页数动态生成分页器
-                bootPage(Math.ceil(response.total / pageSize))
+                bootPage(total)
             }
         })
     }

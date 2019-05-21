@@ -9,9 +9,9 @@
       <h1>写文章</h1>
     </div>
     <!-- 有错误信息时展示 -->
-    <!-- <div class="alert alert-danger">
-        <strong>错误！</strong>发生XXX错误
-      </div> -->
+    <div class="alert alert-danger" id="succeed" style="display: none">
+      <strong></strong>
+    </div>
     <form class="row">
       <div class="col-md-9">
         <div class="form-group">
@@ -65,3 +65,5 @@
 <%- include('./layout/aside.ejs')%>
 
 <%- include('./layout/footer.ejs')%>
+
+<script src="/js/post-add.js"></script>

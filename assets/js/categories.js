@@ -7,7 +7,7 @@ $(function () {
             // data: "data",
             dataType: "json",
             success: function (response) {
-                console.log(response)
+                // console.log(response)
                 var html = template('cateList', { list: response })
                 $('tbody').html(html)
             }

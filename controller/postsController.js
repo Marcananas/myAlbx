@@ -2,7 +2,7 @@ const postsDataMod = require('../dataModules/postsDataMod')
 // 获取所有文章列表数据
 exports.getPosts = (req, res) => {
     postsDataMod.getAllPosts(req.query, (err, data) => {
-        console.log(req.query)
+        // console.log(req.query)
         if (err) {
             res.end('404')
         } else {

@@ -1,30 +1,38 @@
 $(function () {
+    // 初始页数为第一页
     var pageNum = 1
-    var pageSize = 10
-    function init() {
+    // 每页显示的数据数
+    var pageSize = 2
+    // 封装成函数用于刷新页面，传入筛选参数
+    function init(query = {}) {
+        // 发起ajax获取数据动态生成所有文章列表
         $.ajax({
             type: "get",
             url: "/getPosts",
             data: {
                 pageNum,
-                pageSize
+                pageSize,
+                ...query
             },
             dataType: "json",
             success: function (response) {
-                console.log(response)
+                // console.log(response)
                 var html = template('postsList', response)
                 $('tbody').html(html)
+                // 调用分页器模版，传入总页数动态生成分页器
                 bootPage(Math.ceil(response.total / pageSize))
             }
         })
     }
+    // 第一时间调用函数生成页面
     init()
+    // 分页器模版
     function bootPage(total) {
         $(".pagination").bootstrapPaginator({
             bootstrapMajorVersion: 3,    //版本
             currentPage: pageNum,    //当前页数
             // numberOfPages: ,    //最多显示Page页
-            totalPages: total,
+            totalPages: total,    //总页数
             onPageClicked: function (e, originalEvent, type, page) {
                 // console.log("e")
                 // console.log(e)
@@ -35,10 +43,53 @@ $(function () {
                 // console.log("page")
                 // console.log(page)
                 pageNum = page
-                init()
+                // 分页器生成后必须刷新页面
+                // init()
+                // 考虑到换页也要保持筛选条件，故在此调用筛选器函数，筛选器函数也包含刷新功能
+                filter()
             }
         })
     }
+    // 获取分类目录数据动态生成筛选下拉菜单
+    (function () {
+        $.ajax({
+            type: "get",
+            url: "/getCategories",
+            // data: "data",
+            dataType: "json",
+            success: function (response) {
+                // console.log(response)
+                var html = '<option value="all">所有分类</option>'
+                response.forEach(element => {
+                    html += `<option value="${element.id}">${element.name}</option>`
+                })
+                $('.cateSelect').html(html)
+            }
+        })
+    })()
+    // 封装筛选器函数
+    function filter() {
+        var query = {}
+        var cate = $('.cateSelect').val()
+        var status = $('.statuSelect').val()
+        // 判断筛选值是否为'all'，如果都为'all'的话只需要传空对象
+        if (cate != 'all') {
+            query.category_id = cate
+        }
+        if (status != 'all') {
+            query.status = status
+        }
+        // console.log(query)
+        // 传入参数刷新列表
+        init(query)
+    }
+    // 设置筛选按钮点击事件
+    $('#filter').on('click', function () {
+        // 让页面跳转回第一页
+        pageNum = 1
+        // 调用筛选器
+        filter()
+    })
     // 设置全选框点击事件
     $('#checkAll').on('click', function () {
         // console.log(this)
@@ -84,8 +135,10 @@ $(function () {
             data: { id },
             dataType: "json",
             success: function (response) {
-                console.log(response)
-                init()
+                // console.log(response)
+                // init()
+                // 删除也要保持筛选条件
+                filter()
             }
         })
     }
@@ -99,7 +152,7 @@ $(function () {
     $('#delInBatches').on('click', function () {
         // 获取勾选项目
         var allChk = $('tbody .checkList:checked')
-        console.log(allChk)
+        // console.log(allChk)
         // 遍历勾选项目
         for (var i = 0; i < allChk.length; i++) {
             // 将遍历获取的id输入del函数进行逐项删除的操作

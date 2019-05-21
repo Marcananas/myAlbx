@@ -15,7 +15,7 @@ exports.login = (req, res) => {
                 if (data.password == req.body.password) {
                     // 登录成功的同时通过session设置cookie
                     req.session.isLogin = 'true'
-                    // req.session.currentUser = data
+                    req.session.currentUser = data
                     res.json({
                         code: 200,
                         msg: '登录成功'

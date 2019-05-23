@@ -22,6 +22,39 @@ $(function () {
                     $('#succeed').fadeIn(1000).delay(2000).fadeOut(1000)
                 }
             }
-        });
+        })
+    })
+    // 将文本框替换成CKEDITOR
+    CKEDITOR.replace('content');
+    (function () {
+        $.ajax({
+            type: "get",
+            url: "/getCategories",
+            // data: "data",
+            dataType: "json",
+            success: function (response) {
+                // console.log(response)
+                var html
+                response.forEach(element => {
+                    html += `<option value="${element.id}">${element.name}</option>`
+                })
+                $('#category').html(html)
+            }
+        })
+    })()
+    $('.btn-save').on('click', function () {
+        CKEDITOR.instances.content.updateElement()
+        var data = $('form').serialize()
+        // console.log(CKEDITOR.instances.content.updateElement())
+        // console.log(CKEDITOR.instances.content.getData())
+        $.ajax({
+            type: "post",
+            url: "/addPost",
+            data: data,
+            dataType: "json",
+            success: function (response) {
+                console.log(response)
+            }
+        })
     })
 })

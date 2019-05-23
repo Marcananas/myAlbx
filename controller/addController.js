@@ -23,3 +23,20 @@ exports.uploadFile = (req, res) => {
         }
     })
 }
+exports.addPost = (req, res) => {
+    req.body['user_id'] = req.session.currentUser.id
+    addDataMod.savePost(req.body, (err) => {
+        if (err) {
+            console.log(err)
+            res.json({
+                code: 201,
+                msg: '保存失败'
+            })
+        } else {
+            res.json({
+                code: 200,
+                msg: '保存成功'
+            })
+        }
+    })
+}

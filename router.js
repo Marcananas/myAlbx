@@ -33,6 +33,7 @@ router
     .post('/delPosts', postsController.delPosts)
     // 上传文章数据
     .post('/uploadFile', addController.uploadFile)
+    .post('/addPost', addController.addPost)
     // 分类目录数据处理
     .get('/getCategories', cateController.getCategories)
     .post('/editCategories', cateController.editCategories)

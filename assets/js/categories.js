@@ -8,6 +8,8 @@ $(function () {
             dataType: "json",
             success: function (response) {
                 // console.log(response)
+                // 获取的数据中，第一条为“未分类”，这里我们不需要，使用splice(开始删除索引，删除元素数量)删除掉
+                response.splice(0, 1)
                 var html = template('cateList', { list: response })
                 $('tbody').html(html)
             }

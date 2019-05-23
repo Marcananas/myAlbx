@@ -1,7 +1,7 @@
 const connection = require('./commonMod')
 // 从数据库获取文章分类目录所有数据
 exports.getAllCate = (callback) => {
-    connection.query('SELECT * FROM categories WHERE id != 1', (err, response) => {
+    connection.query('SELECT * FROM categories', (err, response) => {
         if (err) {
             callback(err)
         } else {

@@ -31,9 +31,10 @@ router
     // 所有文章数据处理
     .get('/getPosts', postsController.getPosts)
     .post('/delPosts', postsController.delPosts)
-    // 上传文章数据
+    // 上传、修改文章数据
     .post('/uploadFile', addController.uploadFile)
     .post('/addPost', addController.addPost)
+    .get('/getPost', addController.getPost)
     // 分类目录数据处理
     .get('/getCategories', cateController.getCategories)
     .post('/editCategories', cateController.editCategories)

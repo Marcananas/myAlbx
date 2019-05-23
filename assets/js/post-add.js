@@ -42,7 +42,9 @@ $(function () {
             }
         })
     })()
+    // 设置点击保存按钮提交文章事件
     $('.btn-save').on('click', function () {
+        // 这步可以将富文本内容同步到textaera中
         CKEDITOR.instances.content.updateElement()
         var data = $('form').serialize()
         // console.log(CKEDITOR.instances.content.updateElement())
@@ -53,8 +55,26 @@ $(function () {
             data: data,
             dataType: "json",
             success: function (response) {
-                console.log(response)
+                // console.log(response)
+                // 当文章保存成功时，跳转到所有文章页
+                if (response.code == 200) {
+                    location.href = '/admin/posts'
+                }
             }
         })
     })
+    // 设置文章编辑事件
+    var id = common.getIdByUrl(location.search).id
+    // console.log(id)
+    if (id) {
+        $.ajax({
+            type: "get",
+            url: "getPost",
+            data: { id },
+            dataType: "json",
+            success: function (response) {
+                console.log(response)
+            }
+        })
+    }
 })

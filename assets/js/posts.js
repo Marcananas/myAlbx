@@ -2,7 +2,7 @@ $(function () {
     // 初始页数为第一页
     var pageNum = 1
     // 每页显示的数据数
-    var pageSize = 2
+    var pageSize = 4
     // 封装成函数用于刷新页面，传入筛选参数
     function init(query = {}) {
         // 发起ajax获取数据动态生成所有文章列表
@@ -39,7 +39,7 @@ $(function () {
         $(".pagination").bootstrapPaginator({
             bootstrapMajorVersion: 3,    //版本
             currentPage: pageNum,    //当前页数
-            // numberOfPages: ,    //最多显示Page页
+            numberOfPages: 10,    //最多显示Page页
             totalPages: total,    //总页数
             onPageClicked: function (e, originalEvent, type, page) {
                 // console.log("e")
@@ -166,5 +166,6 @@ $(function () {
             // 将遍历获取的id输入del函数进行逐项删除的操作
             del(allChk[i].dataset.id)
         }
+        $('.btn-sm').css('display', 'none')
     })
 })

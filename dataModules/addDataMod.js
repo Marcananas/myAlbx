@@ -10,5 +10,8 @@ module.exports = {
                 callback(null)
             }
         })
+    },
+    postById(data, callback) {
+        connection.query()
     }
 }

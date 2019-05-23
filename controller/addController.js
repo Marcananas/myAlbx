@@ -40,3 +40,20 @@ exports.addPost = (req, res) => {
         }
     })
 }
+exports.getPost = (req, res) => {
+    addDataMod.postById(req.body, (err, data) => {
+        if (err) {
+            console.log(err)
+            res.json({
+                code: 201,
+                msg: '获取失败'
+            })
+        } else {
+            res.json({
+                code: 200,
+                msg: '获取成功',
+                data: data
+            })
+        }
+    })
+}
